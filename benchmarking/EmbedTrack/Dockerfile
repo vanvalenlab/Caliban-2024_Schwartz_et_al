@@ -1,4 +1,6 @@
-FROM conda/miniconda3
+ARG CUDA_TAG=11.4-base-ubuntu20.04
+
+FROM gpuci/miniconda-cuda:$CUDA_TAG
 
 WORKDIR /EmbedTrack
 
