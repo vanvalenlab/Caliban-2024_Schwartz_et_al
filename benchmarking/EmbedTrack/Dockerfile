@@ -18,6 +18,6 @@ RUN conda env create -f environment.yml
 SHELL ["conda", "run", "-n", "venv_embedtrack", "/bin/bash", "-c"]
 
 RUN pip install imagecodecs --no-dependencies \
-    && pip install jupyterlab "cffi==1.15.0" "deepcell-tracking==0.6.3"
+    && pip install jupyterlab "cffi==1.15.0" "deepcell-tracking~=0.6.3"
 
 CMD ["conda", "run", "--no-capture-output", "-n", "venv_embedtrack", "jupyter", "lab", "--ip=0.0.0.0", "--allow-root"]
