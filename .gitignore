@@ -119,7 +119,12 @@ Thumbs.db
 *.h5
 *.trk
 *.trks
+*.tif
 
 # Folders cloned or unzipped
 embedtrack/
 KIT-Loe-GE/
+
+# Data folders
+data/
+benchmarking/EmbedTrack/data
