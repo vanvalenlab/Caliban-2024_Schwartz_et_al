@@ -16,6 +16,9 @@ wget http://public.celltrackingchallenge.net/participants/KIT-Loe-GE.zip
 gzip KIT-LOE-GE.zip
 ```
 
+### Deepcell test data
+Confirm that the deepcell dataset `test.trks` file is placed in the root `data` folder.
+
 ### Build and run the docker container
 ```bash
 docker build -t $USER/EmbedTrack:latest .
