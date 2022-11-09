@@ -6,7 +6,7 @@ FROM gpuci/miniconda-cuda:$CUDA_TAG
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub
 
 # Install gcc in order to build deepcell-toolbox wheels
-RUN apt-get update && apt-get install -y gcc
+RUN apt-get update && apt-get install -y gcc git
 
 WORKDIR /EmbedTrack
 
@@ -18,6 +18,6 @@ RUN conda env create -f environment.yml
 SHELL ["conda", "run", "-n", "venv_embedtrack", "/bin/bash", "-c"]
 
 RUN pip install imagecodecs --no-dependencies \
-    && pip install jupyterlab "cffi==1.15.0" "deepcell-tracking~=0.6.3"
+    && pip install jupyterlab "cffi==1.15.0" "git+https://github.com/vanvalenlab/deepcell-tracking.git@master"
 
 CMD ["conda", "run", "--no-capture-output", "-n", "venv_embedtrack", "jupyter", "lab", "--ip=0.0.0.0", "--allow-root"]
