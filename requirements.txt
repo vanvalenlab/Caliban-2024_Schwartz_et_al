@@ -1,4 +1,6 @@
-deepcell-tracking~=0.6.3
+#deepcell-tracking~=0.6.3
+git+https://github.com/vanvalenlab/deepcell-tracking.git@master
 matplotlib
 pandas
 seaborn
+imagecodecs
