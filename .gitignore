@@ -125,6 +125,7 @@ Thumbs.db
 embedtrack/
 KIT-Loe-GE/
 KTH-SE (1)
+*.zip
 
 # Data folders
 data/
