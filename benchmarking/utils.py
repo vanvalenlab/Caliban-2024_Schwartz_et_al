@@ -4,7 +4,7 @@ import numpy as np
 from tifffile import imwrite
 
 from deepcell_tracking.isbi_utils import trk_to_isbi
-from deepcell_tracking.utils import contig_tracks, is_valid_lineage
+from deepcell_tracking.utils import contig_tracks
 
 
 def find_zero_padding(X):
@@ -76,7 +76,5 @@ def convert_to_contiguous(y, lineage):
         for label in leftover_labels:
             lineage, y = contig_tracks(label, lineage, y)
             done_labels.append(label)
-        
-    is_valid_lineage(y, lineage)
     
     return y, lineage
