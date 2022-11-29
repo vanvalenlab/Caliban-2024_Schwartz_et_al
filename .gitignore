@@ -125,6 +125,8 @@ Thumbs.db
 embedtrack/
 KIT-Loe-GE/
 KTH-SE (1)
+*.zip
+CTC_Evaluation_Software
 
 # Data folders
 data/

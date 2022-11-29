@@ -6,8 +6,8 @@ Magnusson, K. E., Jaldén, J., Gilbert, P. M., & Blau, H. M. (2014). Global link
 
 ### Download software submission from the CTC
 ```bash
-wget http://public.celltrackingchallenge.net/participants/KTH-SE%20(1).zip
-gzip KTH-SE\ (1).zip
+wget http://public.celltrackingchallenge.net/participants/KTH-SE%20\(1\).zip
+unzip "KTH-SE\ (1).zip"
 ```
 
 ### Prepare a python environment
