@@ -1,5 +1,4 @@
 ARG CUDA_TAG=11.4-base-ubuntu20.04
-
 FROM gpuci/miniconda-cuda:$CUDA_TAG
 
 # https://forums.developer.nvidia.com/t/notice-cuda-linux-repository-key-rotation/212771
@@ -13,32 +12,31 @@ RUN apt install -y build-essential
 
 WORKDIR /publication-tracking
 
-# Install requirements for the base environment
-RUN conda create -n deepcell python=3.8 nb_conda_kernels jupyterlab
+RUN conda install -y mamba -c conda-forge
 
-# Activate base environment
+# Install requirements for the base environment
+RUN mamba create -n deepcell python=3.8 nb_conda_kernels jupyterlab
 SHELL ["conda", "run", "-n", "deepcell", "/bin/bash", "-c"]
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-### EmbedTrack ###
+# ### EmbedTrack ###
 COPY benchmarking/EmbedTrack/embedtrack/environment.yml .
-RUN conda env create -f environment.yml
+RUN mamba env create -f environment.yml
 SHELL ["conda", "run", "-n", "venv_embedtrack", "/bin/bash", "-c"]
 RUN pip install imagecodecs --no-dependencies \
     && pip install ipykernel "cffi==1.15.0" "git+https://github.com/vanvalenlab/deepcell-tracking.git@master"
 
-
-### GNN TF ###
-RUN conda env create --name gnn-tf python==3.6
+# ### GNN TF ###
+RUN mamba env create --name gnn-tf python=3.7
+RUN mamba install tensorflow-gpu==2.4.1
 SHELL ["conda", "run", "-n", "gnn-tf", "/bin/bash", "-c"]
-RUN pip install tensorflow-gpu==2.4.1 scikit-learn scikit-image imagecodecs imageio Pillow \
-    scikit-fmm==2022.3.26 seaborn opencv-python-headless ipykernel
+RUN pip install scikit-learn scikit-image \
+    imagecodecs imageio Pillow scikit-fmm==2022.3.26 seaborn opencv-python-headless ipykernel
 
-
-### GNN PyTorch ###
-COPY benchmarking/CellTrackerGNN/cell-tracker-gnn/requirements-conda.txt .
-RUN conda create --name gnn-pytorch --file requirements-conda.txt
+# ### GNN PyTorch ###
+COPY benchmarking/CellTrackerGNN/requirements-conda.txt .
+RUN mamba create --name gnn-pytorch --file requirements-conda.txt
 SHELL ["conda", "run", "-n", "gnn-pytorch", "/bin/bash", "-c"]
 RUN pip install ipykernel opencv-python-headless PyYAML==5.4.1 omegaconf
 
