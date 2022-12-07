@@ -127,6 +127,8 @@ KIT-Loe-GE/
 KTH-SE (1)
 *.zip
 CTC_Evaluation_Software
+software
+cell-tracker-gnn
 
 # Data folders
 data/
