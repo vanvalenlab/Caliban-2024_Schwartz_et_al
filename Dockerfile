@@ -29,7 +29,7 @@ RUN pip install imagecodecs --no-dependencies \
 
 # ### GNN TF ###
 RUN mamba env create --name gnn-tf python=3.7
-RUN mamba install tensorflow-gpu==2.4.1
+RUN mamba install -n gnn-tf tensorflow-gpu==2.4.1
 SHELL ["conda", "run", "-n", "gnn-tf", "/bin/bash", "-c"]
 RUN pip install scikit-learn scikit-image \
     imagecodecs imageio Pillow scikit-fmm==2022.3.26 seaborn opencv-python-headless ipykernel
