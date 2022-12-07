@@ -54,15 +54,20 @@ def save_ctc_gt(exp_dir, batch, y, lineage):
         imwrite(os.path.join(tra_dir, 'man_track{:03}.tif'.format(i)), y[i].astype('uint16'))
         
             
-def save_ctc_res(exp_dir, batch, y, lineage):
-    res_dir = os.path.join(exp_dir, '{:03}_RES'.format(batch))
+def save_ctc_res(exp_dir, batch, y, lineage=None, seg=False):
+    if seg:
+        name = '{:03}_SEG_RES'.format(batch)
+    else:
+        name = '{:03}_RES'.format(batch)
+    res_dir = os.path.join(exp_dir, name)
     
     if not os.path.exists(res_dir):
         os.makedirs(res_dir)
         
     # Save lineage to isbi txt
-    df = trk_to_isbi(lineage)
-    df.to_csv(os.path.join(res_dir, 'res_track.txt'), sep=' ', header=False, index=False)
+    if lineage:
+        df = trk_to_isbi(lineage)
+        df.to_csv(os.path.join(res_dir, 'res_track.txt'), sep=' ', header=False, index=False)
     
     # Save each frame as a tiff file
     for i in range(y.shape[0]):
