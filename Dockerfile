@@ -25,7 +25,7 @@ COPY benchmarking/EmbedTrack/embedtrack/environment.yml .
 RUN mamba env create -f environment.yml
 SHELL ["conda", "run", "-n", "venv_embedtrack", "/bin/bash", "-c"]
 RUN pip install imagecodecs --no-dependencies \
-    && pip install ipykernel "cffi==1.15.0" "git+https://github.com/vanvalenlab/deepcell-tracking.git@master"
+    && pip install ipykernel "cffi==1.15.0" deepcell-tracking~=0.6.4
 
 # ### GNN TF ###
 RUN mamba env create --name gnn-tf python=3.7
