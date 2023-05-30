@@ -159,7 +159,7 @@ def main(
         str, typer.Option(help="Path to the training data")
     ] = "data/tracking",
     seed: Annotated[int, typer.Option(help="Random seed")] = 0,
-    batch_size: Annotated[int, typer.Option(help="Number of samples per batch")] = 4,
+    batch_size: Annotated[int, typer.Option(help="Number of samples per batch")] = 8,
     track_length: Annotated[
         int, typer.Option(help="Number of frames per track object.")
     ] = 8,
@@ -173,14 +173,14 @@ def main(
     ] = 64,
     graph_layer: Annotated[
         str, typer.Option(help="Type of graph convolutional layer.")
-    ] = "gcn",
-    epochs: Annotated[int, typer.Option(help="Number of training epochs.")] = 40,
+    ] = "gat",
+    epochs: Annotated[int, typer.Option(help="Number of training epochs.")] = 50,
     steps_per_epoch: Annotated[
         int, typer.Option(help="Number of steps per epoch.")
-    ] = 512,
+    ] = 1000,
     validation_steps: Annotated[
         int, typer.Option(help="Number of validation steps per epoch")
-    ] = 100,
+    ] = 200,
     rotation_range: Annotated[
         int, typer.Option(help="Rotation range for data augmentation")
     ] = 180,
@@ -189,7 +189,7 @@ def main(
     ] = 512,
     buffer_size: Annotated[
         int, typer.Option(help="Buffer size for dataset shuffling.")
-    ] = 256,
+    ] = 128,
     lr: Annotated[float, typer.Option(help="Learning rate")] = 1e-3,
     norm_layer: Annotated[
         str, typer.Option(help="Type of normalization layer")

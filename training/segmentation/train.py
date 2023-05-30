@@ -298,7 +298,7 @@ def main(
     ] = "train_log.csv",
     data_path: Annotated[
         str, typer.Option(help="Directory where training data is located")
-    ] = "data/segmentation",
+    ] = "../../data/segmentation",
     tracking_data_source: Annotated[
         str, typer.Option(help="Path to tracking data-source.npz")
     ] = "data/tracking/data-source.npz",

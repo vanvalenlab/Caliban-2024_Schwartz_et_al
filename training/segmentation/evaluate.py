@@ -110,8 +110,8 @@ def main(
         str, typer.Option(help="Path to the trained models")
     ] = "NuclearSegmentation",
     metrics_path: Annotated[
-        str, typer.Option(help="Destination of recorded metrics of the trained model")
-    ] = "metrics.yaml",
+        str, typer.Option(help="Destination of evaluation metrics")
+    ] = "evaluate-metrics.yaml",
     predictions_path: Annotated[
         str, typer.Option(help="Path to save sample predictions")
     ] = "predictions.png",

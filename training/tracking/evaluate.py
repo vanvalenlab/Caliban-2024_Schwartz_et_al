@@ -209,7 +209,7 @@ def main(
     ] = 0.99,
     division: Annotated[
         float, typer.Option(help="Probability threshold for assigning daughter cells")
-    ] = 0.9,
+    ] = 0.01,
     nuc_model_path: Annotated[
         str, typer.Option(help="Path to segmentation model")
     ] = "../segmentation/NuclearSegmentation",
