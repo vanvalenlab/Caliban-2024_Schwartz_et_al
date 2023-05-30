@@ -107,40 +107,48 @@ def create_overlays(x, gt, pred):
 
 def main(
     model_path: Annotated[
-        str, typer.Option("Path to the trained models")
+        str, typer.Option(help="Path to the trained models")
     ] = "NuclearSegmentation",
     metrics_path: Annotated[
-        str, typer.Option("Destination of recorded metrics of the trained model")
+        str, typer.Option(help="Destination of recorded metrics of the trained model")
     ] = "metrics.yaml",
     predictions_path: Annotated[
-        str, typer.Option("Path to save sample predictions")
+        str, typer.Option(help="Path to save sample predictions")
     ] = "predictions.png",
     data_path: Annotated[
-        str, typer.Option("Path to the training data")
+        str, typer.Option(help="Path to the training data")
     ] = "data/segmentation",
     tracking_data_source: Annotated[
         str, typer.Option(help="Path to tracking data-source.npz")
     ] = "data/tracking/data-source.npz",
     radius: Annotated[
-        int, typer.Option("Radius parameter for deep_watershed postprocessing")
+        int, typer.Option(help="Radius parameter for deep_watershed postprocessing")
     ] = 10,
     maxima_threshold: Annotated[
         float,
-        typer.Option("maxima threshold parameter for deep watershed postprocessing"),
+        typer.Option(
+            help="maxima threshold parameter for deep watershed postprocessing"
+        ),
     ] = 0.1,
     interior_threshold: Annotated[
         float,
-        typer.Option("Interior threshold parameter for deep watershed postprocessing"),
+        typer.Option(
+            help="Interior threshold parameter for deep watershed postprocessing"
+        ),
     ] = 0.01,
     exclude_border: Annotated[
-        bool, typer.Option("Exclude border parameter for deep watershed postprocessing")
+        bool,
+        typer.Option(help="Exclude border parameter for deep watershed postprocessing"),
     ] = False,
     small_objects_threshold: Annotated[
-        int, typer.Option("small objects threshold for deep watershed postprocessing")
+        int,
+        typer.Option(help="small objects threshold for deep watershed postprocessing"),
     ] = 0,
     min_distance: Annotated[
         int,
-        typer.Option("Deep watershed parameter for minimum distance between objects"),
+        typer.Option(
+            help="Deep watershed parameter for minimum distance between objects"
+        ),
     ] = 10,
 ):
     # Load data source for tracking
@@ -196,3 +204,7 @@ def main(
         ax[j, 1].axis("off")
 
     plt.savefig(predictions_path)
+
+
+if __name__ == "__main__":
+    typer.run(main)
