@@ -122,6 +122,7 @@ Thumbs.db
 *.trk
 *.trks
 *.tif
+*.npz
 
 # Folders cloned or unzipped
 embedtrack/
