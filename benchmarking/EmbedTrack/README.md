@@ -27,6 +27,6 @@ docker build -t $USER/EmbedTrack:latest . -f Dockerfile.embedtrack
 ```bash
 docker run -it --gpus "device=0" \
     -p 8888:8888 \
-    -v $PWD:/publication-tracking
+    -v $PWD:/notebooks
     $USER/embedtrack:latest
 ```

@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y gcc git
 # Install compiler for scikit-fmm
 RUN apt install -y build-essential
 
-WORKDIR /publication-tracking
+WORKDIR /notebooks
 
 RUN conda install -y mamba -c conda-forge
 
