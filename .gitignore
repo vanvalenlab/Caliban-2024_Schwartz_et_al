@@ -136,3 +136,18 @@ cell-tracker-gnn
 # Data folders
 data/
 benchmarking/EmbedTrack/data
+
+# Training outputs
+training/segmentation/NuclearSegmentation
+training/segmentation/*.yaml
+training/segmentation/predictions.png
+training/segmentation/train_log.csv
+
+training/tracking/*.tfrecord
+training/tracking/*.csv
+training/tracking/NuclearTrackingInf
+training/tracking/NuclearTrackingNE
+training/tracking/*.yaml
+training/tracking/*.csv
+training/tracking/predictions-gt
+training/tracking/predictions-caliban

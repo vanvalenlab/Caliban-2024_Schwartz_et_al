@@ -12,7 +12,7 @@ from typing_extensions import Annotated
 def main(
     data_path: Annotated[
         str, typer.Option(help="Path to training data directory")
-    ] = "data/tracking",
+    ] = "../../data/tracking",
     appearance_dim: Annotated[
         int, typer.Option(help="Length of appearance dimension")
     ] = 32,

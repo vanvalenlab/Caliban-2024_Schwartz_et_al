@@ -301,7 +301,7 @@ def main(
     ] = "../../data/segmentation",
     tracking_data_source: Annotated[
         str, typer.Option(help="Path to tracking data-source.npz")
-    ] = "data/tracking/data-source.npz",
+    ] = "../../data/tracking/data-source.npz",
     epochs: Annotated[int, typer.Option(help="Number of training epochs")] = 16,
     seed: Annotated[int, typer.Option(help="Random seed")] = 0,
     min_objects: Annotated[
@@ -331,9 +331,9 @@ def main(
     inner_erosion_width: Annotated[
         int, typer.Option(help="erosion width for inner distance transform")
     ] = 0,
-    location: Annotated[bool, typer.Option("Whether to include location layer")] = True,
+    location: Annotated[bool, typer.Option(help="Whether to include location layer")] = True,
     pyramid_levels: Annotated[
-        str, typer.Option("String of pyramid levels")
+        str, typer.Option(help="String of pyramid levels")
     ] = "P1-P2-P3-P4-P5-P6-P7",
 ):
     # Load data source for tracking
@@ -378,15 +378,7 @@ def main(
 
     all_metrics = {
         "training": {k: str(v[-1]) for k, v in history.history.items()},
-        "data": {},
     }
-
-    # Record dataset stats
-    for split in data.keys():
-        all_metrics["data"][split] = {}
-        for size, dim in zip(data["X"].shape, "byxc"):
-            all_metrics["data"][split][dim] = size
-        all_metrics["data"][split]["annotations"] = count_cells(data["y"])
 
     # save a metadata.yaml file in the saved model directory
     with open(metrics_path, "w") as f:

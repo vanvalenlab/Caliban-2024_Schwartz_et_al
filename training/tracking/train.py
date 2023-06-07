@@ -156,8 +156,8 @@ def main(
         typer.Option(help="Destination of training metrics recorded at every epoch"),
     ] = "train_log.csv",
     data_path: Annotated[
-        str, typer.Option(help="Path to the training data")
-    ] = "data/tracking",
+        str, typer.Option(help="Path to the tfrecord files")
+    ] = ".",
     seed: Annotated[int, typer.Option(help="Random seed")] = 0,
     batch_size: Annotated[int, typer.Option(help="Number of samples per batch")] = 8,
     track_length: Annotated[

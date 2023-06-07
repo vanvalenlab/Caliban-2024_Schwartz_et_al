@@ -117,10 +117,10 @@ def main(
     ] = "predictions.png",
     data_path: Annotated[
         str, typer.Option(help="Path to the training data")
-    ] = "data/segmentation",
+    ] = "../../data/segmentation",
     tracking_data_source: Annotated[
         str, typer.Option(help="Path to tracking data-source.npz")
-    ] = "data/tracking/data-source.npz",
+    ] = "../../data/tracking/data-source.npz",
     radius: Annotated[
         int, typer.Option(help="Radius parameter for deep_watershed postprocessing")
     ] = 10,

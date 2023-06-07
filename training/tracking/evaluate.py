@@ -199,7 +199,7 @@ def main(
     ] = "evaluate-metrics.yaml",
     data_path: Annotated[
         str, typer.Option(help="Path to data directory")
-    ] = "data/tracking",
+    ] = "../../data/tracking",
     track_length: Annotated[int, typer.Option(help="Number of frames per track")] = 8,
     death: Annotated[
         float, typer.Option(help="Parameter used to fill the death matrix in the LAP")
@@ -289,3 +289,6 @@ def main(
     # save a metadata.yaml file in the saved model directory
     with open(metrics_path, "w") as f:
         yaml.dump(all_metrics, f)
+
+if __name__ == "__main__":
+    typer.run(main)
