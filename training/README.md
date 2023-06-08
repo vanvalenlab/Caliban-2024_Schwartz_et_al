@@ -1,9 +1,5 @@
 # README
 
-# Data
-
-todo
-
 # Training the segmentation model
 Run the training script from `training/segmentation`
 ```bash

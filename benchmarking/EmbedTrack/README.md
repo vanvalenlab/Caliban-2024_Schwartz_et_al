@@ -19,14 +19,10 @@ unzip KIT-LOE-GE.zip
 ### Deepcell test data
 Confirm that the deepcell dataset `test.trks` file is placed in the root `data` folder.
 
-### From the root of the publication-tracking folder, build and run the docker container
+### Build the enviornment
 ```bash
-docker build -t $USER/EmbedTrack:latest . -f Dockerfile.embedtrack
-```
-
-```bash
-docker run -it --gpus "device=0" \
-    -p 8888:8888 \
-    -v $PWD:/notebooks
-    $USER/embedtrack:latest
+mamba env create -f environment.yml
+mamba activate venv_embedtrack
+pip install imagecodecs --no-dependencies
+pip install jupyterlab "cffi==1.15.0" deepcell-tracking~=0.6.4
 ```
