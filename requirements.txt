@@ -1,5 +1,5 @@
 deepcell-tracking~=0.6.4
-deepcell~=0.12.3
+deepcell~=0.12.8
 matplotlib
 pandas
 seaborn

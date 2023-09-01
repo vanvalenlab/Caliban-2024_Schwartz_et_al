@@ -1,6 +1,8 @@
 # Caliban-2023_Schwartz_et_al
 
-## Setup a deepcell environment
+## Running deepcell
+
+### In a `mamba` environment
 These instructions are written using `mamba` as a package manager, but `conda` can be substituted for `mamba`.
 
 ```bash
@@ -9,10 +11,22 @@ mamba activate deepcell
 pip install -r requirements.txt
 ```
 
-## Data
-Instructions for accessing the data needed to run the notebooks and scripts in this repo are located in the `README.md` files inside `data`.
+### In a docker container
+```bash
+# Start a GPU enabled container on one GPUs
+docker run --gpus '"device=0"' -it --rm \
+    -p 8888:8888 \
+    -v $PWD/notebooks:/notebooks \
+    vanvalenlab/deepcell-tf:0.12.8-gpu
+```
 
-## Training Calban Models
+### DeepCell API Key
+An API key is required to access the DynamicNuclearNet dataset and Caliban models. Please see the [docs](https://deepcell.readthedocs.io/en/master/API-key.html) for more information.
+
+## Data
+The DynamicNuclearNet dataset can be accessed through `deepcell.datasets` ([docs](https://deepcell.readthedocs.io/en/master/data-gallery/dynamicnuclearnet.html)). Instructions for accessing additional data needed to run the notebooks and scripts in this repo are located in the `README.md` files inside `data`.
+
+## Training Caliban Models
 The scripts for training the nuclear segmentation and tracking models used in Caliban are included in the `training/segmentation` and `training/tracking` folders. The `deepcell` environment created above can be used for all of these scripts. Instructions for running the scripts are located in `training/README.md`.
 
 ## Benchmarking
