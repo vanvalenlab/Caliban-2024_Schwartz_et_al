@@ -3,6 +3,7 @@ import os
 import tensorflow as tf
 import typer
 from deepcell.data.tracking import Track
+from deepcell.datasets import DynamicNuclearNetTracking
 from deepcell.utils.tfrecord_utils import write_tracking_dataset_to_tfr
 from deepcell_tracking.trk_io import load_trks
 from deepcell_tracking.utils import get_max_cells
@@ -12,13 +13,17 @@ from typing_extensions import Annotated
 def main(
     data_path: Annotated[
         str, typer.Option(help="Path to training data directory")
-    ] = "../../data/tracking",
+    ] = None,
     appearance_dim: Annotated[
         int, typer.Option(help="Length of appearance dimension")
     ] = 32,
     distance_threshold: Annotated[int, typer.Option(help="Distance threshold")] = 64,
     crop_mode: Annotated[str, typer.Option(help="Crop mode")] = "resize",
 ):
+    # Download tracking data if path is not provided
+    if data_path is None:
+        dnn_trk = DynamicNuclearNetTracking()
+        data_path = dnn_trk.path
     train_trks = load_trks(os.path.join(data_path, "train.trks"))
     val_trks = load_trks(os.path.join(data_path, "val.trks"))
 

@@ -6,6 +6,7 @@ import numpy as np
 import tensorflow as tf
 import typer
 import yaml
+from deepcell.datasets import DynamicNuclearNetTracking, DynamicNuclearNetSegmentation
 from deepcell.losses import weighted_categorical_crossentropy
 from deepcell.model_zoo.panopticnet import PanopticNet
 from deepcell.utils.train_utils import count_gpus, rate_scheduler
@@ -63,21 +64,6 @@ def count_cells(y):
         count += len(np.unique(frame)) - 1  # Subtract 1 for the background
 
     return count
-
-
-def _load_npz(filepath):
-    """Load a npz file"""
-    data = np.load(filepath)
-    X = data["X"]
-    y = data["y"]
-
-    print(
-        "Loaded {}: X.shape: {}, y.shape {}".format(
-            os.path.basename(filepath), X.shape, y.shape
-        )
-    )
-
-    return {"X": X, "y": y}
 
 
 def semantic_loss(n_classes):
@@ -298,10 +284,10 @@ def main(
     ] = "train_log.csv",
     data_path: Annotated[
         str, typer.Option(help="Directory where training data is located")
-    ] = "../../data/segmentation",
+    ] = None,
     tracking_data_source: Annotated[
         str, typer.Option(help="Path to tracking data-source.npz")
-    ] = "../../data/tracking/data-source.npz",
+    ] = None,
     epochs: Annotated[int, typer.Option(help="Number of training epochs")] = 16,
     seed: Annotated[int, typer.Option(help="Random seed")] = 0,
     min_objects: Annotated[
@@ -337,9 +323,18 @@ def main(
     ] = "P1-P2-P3-P4-P5-P6-P7",
 ):
     # Load data source for tracking
-    source = np.load(
-        os.path.join(os.path.dirname(__file__), tracking_data_source), allow_pickle=True
-    )
+    if tracking_data_source is None:
+        # Download the dataset by initializing object
+        dnn_trk = DynamicNuclearNetTracking()
+        tracking_data_source = os.path.join(dnn_trk.path, 'data-source.npz')
+    else:
+        tracking_data_source = os.path.join(os.path.dirname(__file__), tracking_data_source)
+    source = np.load(tracking_data_source, allow_pickle=True)
+
+    # Check that segmentation data is available
+    if data_path is None:
+        dnn_seg = DynamicNuclearNetSegmentation()
+        data_path = dnn_seg.path
 
     data = update_data_split(source, data_path)
 

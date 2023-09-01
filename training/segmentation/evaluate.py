@@ -7,6 +7,7 @@ import tensorflow as tf
 import typer
 import yaml
 from deepcell.applications import NuclearSegmentation
+from deepcell.datasets import DynamicNuclearNetTracking, DynamicNuclearNetSegmentation
 from deepcell_toolbox.metrics import Metrics
 from skimage.color import label2rgb
 from skimage.exposure import rescale_intensity
@@ -37,21 +38,6 @@ def update_data_split(source, data_dir):
         data[split] = {"X": np.concatenate(tmp_x), "y": np.concatenate(tmp_y)}
 
     return data
-
-
-def _load_npz(filepath):
-    """Load a npz file"""
-    data = np.load(filepath)
-    X = data["X"]
-    y = data["y"]
-
-    print(
-        "Loaded {}: X.shape: {}, y.shape {}".format(
-            os.path.basename(filepath), X.shape, y.shape
-        )
-    )
-
-    return X, y
 
 
 def evaluate(app, X_test, y_test, postprocess_kwargs=None):
@@ -117,10 +103,10 @@ def main(
     ] = "predictions.png",
     data_path: Annotated[
         str, typer.Option(help="Path to the training data")
-    ] = "../../data/segmentation",
+    ] = None,
     tracking_data_source: Annotated[
         str, typer.Option(help="Path to tracking data-source.npz")
-    ] = "../../data/tracking/data-source.npz",
+    ] = None,
     radius: Annotated[
         int, typer.Option(help="Radius parameter for deep_watershed postprocessing")
     ] = 10,
@@ -152,9 +138,18 @@ def main(
     ] = 10,
 ):
     # Load data source for tracking
-    source = np.load(
-        os.path.join(os.path.dirname(__file__), tracking_data_source), allow_pickle=True
-    )
+    if tracking_data_source is None:
+        # Download the dataset by initializing object
+        dnn_trk = DynamicNuclearNetTracking()
+        tracking_data_source = os.path.join(dnn_trk.path, 'data-source.npz')
+    else:
+        tracking_data_source = os.path.join(os.path.dirname(__file__), tracking_data_source)
+    source = np.load(tracking_data_source, allow_pickle=True)
+
+    # Check that segmentation data is available
+    if data_path is None:
+        dnn_seg = DynamicNuclearNetSegmentation()
+        data_path = dnn_seg.path
 
     data = update_data_split(source, data_path)
     X_test = data["test"]["X"]

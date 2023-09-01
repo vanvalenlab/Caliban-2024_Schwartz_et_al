@@ -5,6 +5,7 @@ import tensorflow as tf
 import typer
 import yaml
 from deepcell.applications import NuclearSegmentation
+from deepcell.datasets import DynamicNuclearNetTracking
 from deepcell_toolbox.metrics import Metrics
 from deepcell_tracking import CellTracker
 from deepcell_tracking.metrics import (
@@ -199,7 +200,7 @@ def main(
     ] = "evaluate-metrics.yaml",
     data_path: Annotated[
         str, typer.Option(help="Path to data directory")
-    ] = "../../data/tracking",
+    ] = None,
     track_length: Annotated[int, typer.Option(help="Number of frames per track")] = 8,
     death: Annotated[
         float, typer.Option(help="Parameter used to fill the death matrix in the LAP")
@@ -227,6 +228,11 @@ def main(
     # Load models
     ne_model = tf.keras.models.load_model(ne_model_path)
     inf_model = tf.keras.models.load_model(inf_model_path)
+
+    # Download tracking data if path is not provided
+    if data_path is None:
+        dnn_trk = DynamicNuclearNetTracking()
+        data_path = dnn_trk.path
 
     # Load data
     test_data = load_trks(os.path.join(data_path, "test.trks"))
