@@ -8,7 +8,7 @@ unzip software.zip
 
 ## Build the environments
 ```bash
-mamba env create --name gnn-tf python=3.7
+mamba create --name gnn-tf python=3.7
 mamba activate gnn-tf
 mamba install tensorflow-gpu==2.4.1
 pip install scikit-learn scikit-image imagecodecs imageio Pillow scikit-fmm==2022.3.26 seaborn opencv-python-headless jupyterlab
