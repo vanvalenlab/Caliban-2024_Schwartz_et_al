@@ -1,6 +1,0 @@
-setting,001,002,003,004,005,006,007,008,009,010,011,012
-SegOldVersion,none,none,none,none,none,none,none,none,none,none,none,none
-SegSave,1,1,1,1,1,1,1,1,1,1,1,1
-SegGbRamPerFrameCTC,16,16,16,16,16,16,16,16,16,16,16,16
-SegAlgorithm,Segment_import,Segment_import,Segment_import,Segment_import,Segment_import,Segment_import,Segment_import,Segment_import,Segment_import,Segment_import,Segment_import,Segment_import
-SegImportFolder,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell,Segmentation_DeepCell
