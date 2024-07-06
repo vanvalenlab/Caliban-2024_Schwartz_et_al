@@ -1,11 +1,11 @@
 dirs = ["seg-gt", "seg-dc"]
 ids = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010", "011", "012"]
-lens = [42, 42, 42, 42, 42, 50, 50, 71, 71, 65, 45, 55]
+lens = [71, 42, 42, 42, 42, 42, 71, 50, 50, 45, 65, 55]
 
 n = length(dirs)
 for i=1:1:n
     d = convertStringsToChars(dirs(i))
-    
+
     m = length(lens)
     for j=1:1:m
         idx = convertStringsToChars(ids(j))
@@ -23,7 +23,7 @@ for i=1:1:n
         clear Tracker
 
         % Configure a tracking project
-        projectName = d + idx;
+        projectName = strcat(d, idx);
         fileIdentifierFingerprintImages = 'nuclear';
         fileIdentifierWellPositionFingerprint = [];
         fileIdentifierCellLineage = '';
