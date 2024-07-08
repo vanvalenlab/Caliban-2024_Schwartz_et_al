@@ -41,6 +41,10 @@ def evaluate(
     division=0.9,
     y_pred=None,
     iou_thresh=1,
+    distance_threshold=None,
+    appearance_dim=None,
+    crop_mode=None,
+    masked_norm=None
 ):
     # Check that prediction directory exists and make if needed
     if not os.path.exists(prediction_dir):
@@ -76,6 +80,10 @@ def evaluate(
             death=death,
             birth=birth,
             division=division,
+            distance_threshold=distance_threshold,
+            appearance_dim=appearance_dim,
+            crop_mode=crop_mode,
+            norm=masked_norm
         )
 
         try:
@@ -224,6 +232,12 @@ def main(
             help="Directory to save tracking predictions on predicted segmentations"
         ),
     ] = "predictions-caliban",
+    appearance_dim: Annotated[
+        int, typer.Option(help="Length of appearance dimension")
+    ] = 32,
+    distance_threshold: Annotated[int, typer.Option(help="Distance threshold")] = 64,
+    crop_mode: Annotated[str, typer.Option(help="Crop mode")] = "resize",
+    norm: Annotated[bool, typer.Option(help='Apply normalization to fixed crop mode')] = False
 ):
     # Load models
     ne_model = tf.keras.models.load_model(ne_model_path)
@@ -244,19 +258,47 @@ def main(
     with np.load(os.path.join(data_path, "data-source.npz"), allow_pickle=True) as data:
         meta = data["test"]
 
-    # # evaluate the model
-    metrics, exp_metrics = evaluate(
+    # Set fixed parameters for evalution
+    def _evaluate(
         ne_model,
         inf_model,
         X_test,
         y_test,
         lineages_test,
         meta,
-        prediction_gt_dir,
-        track_length=track_length,
-        birth=birth,
-        death=death,
-        division=division,
+        prediction_dir,
+        y_pred=None,
+        iou_thresh=1,
+    ):
+        return evaluate(
+            ne_model,
+            inf_model,
+            X_test,
+            y_test,
+            lineages_test,
+            meta,
+            prediction_dir,
+            track_length=track_length,
+            death=death,
+            birth=birth,
+            division=division,
+            y_pred=y_pred,
+            iou_thresh=iou_thresh,
+            distance_threshold=distance_threshold,
+            appearance_dim=appearance_dim,
+            crop_mode=crop_mode,
+            masked_norm=norm
+        )
+
+    # # evaluate the model
+    metrics, exp_metrics = _evaluate(
+        ne_model,
+        inf_model,
+        X_test,
+        y_test,
+        lineages_test,
+        meta,
+        prediction_gt_dir
     )
 
     # Generate nuclear predictions for end-end testing
@@ -264,7 +306,7 @@ def main(
     y_pred, segment_metrics = prep_segmentations(X_test, y_test, nuc_model)
 
     # Evaluate tracking on segmentation predictions
-    caliban_metrics, caliban_exp_metrics = evaluate(
+    caliban_metrics, caliban_exp_metrics = _evaluate(
         ne_model,
         inf_model,
         X_test,
@@ -272,10 +314,6 @@ def main(
         lineages_test,
         meta,
         prediction_caliban_dir,
-        track_length=track_length,
-        birth=birth,
-        death=death,
-        division=division,
         y_pred=y_pred,
         iou_thresh=0.6,
     )  # Allow for imperfect matching between segmentations

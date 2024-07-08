@@ -19,6 +19,7 @@ def main(
     ] = 32,
     distance_threshold: Annotated[int, typer.Option(help="Distance threshold")] = 64,
     crop_mode: Annotated[str, typer.Option(help="Crop mode")] = "resize",
+    norm: Annotated[bool, typer.Option(help='Apply normalization to fixed crop mode')] = False
 ):
     # Download tracking data if path is not provided
     if data_path is None:
@@ -38,6 +39,7 @@ def main(
                 appearance_dim=appearance_dim,
                 distance_threshold=distance_threshold,
                 crop_mode=crop_mode,
+                norm=norm
             )
 
             write_tracking_dataset_to_tfr(
