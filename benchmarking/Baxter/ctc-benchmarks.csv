@@ -1,0 +1,5 @@
+,model,data_id,correct_division,mismatch_division,false_positive_division,false_negative_division,total_divisions,aa_tp,aa_total,te_tp,te_total,DET,SEG,TRA
+0,Baxter - GT,001,122,1,22,38,161,13256,13508,13682,13944,0.995432,0.995167,0.994721
+1,Baxter - GT,002,94,2,28,37,133,17140,17465,17579,17949,0.993398,0.991611,0.992112
+2,Baxter - Deepcell,001,119,0,21,42,161,13351,13508,13784,13944,0.993244,0.894491,0.992673
+3,Baxter - Deepcell,002,93,3,25,37,133,17244,17465,17706,17949,0.990228,0.89268,0.988604
