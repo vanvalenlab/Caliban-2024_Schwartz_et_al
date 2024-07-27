@@ -17,7 +17,7 @@ pip install -r requirements.txt
 docker run --gpus '"device=0"' -it --rm \
     -p 8888:8888 \
     -v $PWD/notebooks:/notebooks \
-    vanvalenlab/deepcell-tf:0.12.8-gpu
+    vanvalenlab/deepcell-tf:0.12.9-gpu
 ```
 
 ### DeepCell API Key
