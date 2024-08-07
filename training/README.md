@@ -46,9 +46,10 @@ First, save the training and validation datasets as a TFRecord. Run the followin
 ```bash
 python save_tfrecord.py \
     --data-path ../../data/tracking \
-    --appearance-dim 32 \
+    --appearance-dim 16 \
     --distance-threshold 64 \
-    --crop-mode resize
+    --crop-mode fixed \
+    --norm True
 ```
 
 Run the training script from `training/tracking`
@@ -90,5 +91,9 @@ python evaluate.py
     --division 0.01 \
     --nuc-model-path ../segmentation/NuclearSegmentation \
     --prediction-gt-dir predictions-gt \
-    --prediction-caliban-dir predictions-caliban
+    --prediction-caliban-dir predictions-caliban \
+    --appearance-dim 16 \
+    --distance-threshold 64 \
+    --crop-mode fixed \
+    --norm True
 ```

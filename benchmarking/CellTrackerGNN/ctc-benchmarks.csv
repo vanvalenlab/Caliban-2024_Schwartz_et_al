@@ -1,0 +1,5 @@
+,model,data_id,correct_division,mismatch_division,false_positive_division,false_negative_division,total_divisions,aa_tp,aa_total,te_tp,te_total,DET,SEG,TRA
+0,CellTrackerGNN Fluo-N2DL-HeLa - GT,001,117,28,180,16,161,13072,13508,13508,13944,0.9981,0.996199,0.995355
+1,CellTrackerGNN Fluo-N2DL-HeLa - GT,002,102,24,178,7,133,16757,17465,17239,17949,0.998323,0.996458,0.996014
+2,CellTrackerGNN Fluo-N2DL-HeLa - Pred,001,47,51,163,63,161,12347,13508,12735,13944,0.92277,0.843206,0.921594
+3,CellTrackerGNN Fluo-N2DL-HeLa - Pred,002,59,37,166,37,133,16097,17465,16497,17949,0.939495,0.849269,0.937358

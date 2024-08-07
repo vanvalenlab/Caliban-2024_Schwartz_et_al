@@ -1,0 +1,5 @@
+,model,data_id,correct_division,mismatch_division,false_positive_division,false_negative_division,total_divisions,aa_tp,aa_total,te_tp,te_total,DET,SEG,TRA
+0,TracX - GT,001,10,19,5,132,161,13261,13508,13697,13944,1.0,1.0,0.996001
+1,TracX - GT,002,9,16,18,108,133,17025,17465,17509,17949,1.0,1.0,0.997188
+2,TracX - Deepcell,001,13,19,6,129,161,13280,13508,13714,13944,0.993761,0.896482,0.990429
+3,TracX - Deepcell,002,10,17,23,106,133,17009,17465,17490,17949,0.993638,0.896914,0.990744

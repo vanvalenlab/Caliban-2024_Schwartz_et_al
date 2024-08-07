@@ -1,0 +1,5 @@
+,model,data_id,correct_division,mismatch_division,false_positive_division,false_negative_division,total_divisions,aa_tp,aa_total,te_tp,te_total,DET,SEG,TRA
+0,Caliban - GT,001,133,4,8,24,161,13455,13508,13891,13944,1.0,1.0,0.999344
+1,Caliban - GT,002,93,12,18,28,133,17183,17465,17667,17949,1.0,1.0,0.998996
+2,Caliban - Caliban,001,120,7,14,34,161,13424,13508,13859,13944,0.993768,0.896498,0.993366
+3,Caliban - Caliban,002,93,11,14,29,133,17129,17465,17610,17949,0.993638,0.896924,0.992289
